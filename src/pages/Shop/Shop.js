@@ -1,21 +1,21 @@
-import React, { Component } from 'react'
-import {shopData} from './shopData';
-import PreviewCollection from '../../components/PreviewCollection/PreviewCollection';
+import React, { Component } from "react";
+import { shopData } from "./shopData";
+import PreviewCollection from "../../components/PreviewCollection/PreviewCollection";
 
 export class Shop extends Component {
   state = {
-    collections: shopData
-  }
+    collections: shopData,
+  };
   render() {
-    const {collections} = this.state;
+    const { collections } = this.state;
     return (
       <div className="shop-page">
-        {collections.map(({id, ...otherCollectionsProps}) => (
-          <PreviewCollection id={id} {...otherCollectionsProps} />
+        {collections.map(({ id, ...otherCollectionsProps }) => (
+          <PreviewCollection key={id} {...otherCollectionsProps} />
         ))}
       </div>
-    )
+    );
   }
 }
 
-export default Shop
+export default Shop;
