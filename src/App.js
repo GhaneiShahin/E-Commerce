@@ -4,7 +4,7 @@ import Homepage from "./pages/Homepage/Homepage";
 import Shop from "./pages/Shop/Shop";
 import Header from "./components/Header/Header";
 import SignIn_and_SignUp from "./pages/SignIn-and-SignUp/SignIn-and-SignUp";
-import { auth } from "./firebase/firebase-utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase-utils";
 
 class App extends Component {
   state = {
@@ -14,9 +14,21 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user });
-      console.log(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        userRef.onSnapshot((snapShot) => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data(),
+            },
+          });
+          console.log(this.state)
+        });
+      } else {
+        this.setState({ currentUser: userAuth });
+      }
     });
   }
 
@@ -26,7 +38,7 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <Header currentUser={this.state.currentUser}/>
+        <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route path="/shop" component={Shop} />
           <Route path="/signin" component={SignIn_and_SignUp} />
