@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, Redirect } from "react-router";
 import { connect } from "react-redux";
 import Homepage from "./pages/Homepage/Homepage";
 import Shop from "./pages/Shop/Shop";
 import Header from "./components/Header/Header";
-import SignIn_and_SignUp from "./pages/SignIn-and-SignUp/SignIn-and-SignUp";
+import SignInandSignUp from "./pages/SignIn-and-SignUp/SignIn-and-SignUp";
 import { auth, createUserProfileDocument } from "./firebase/firebase-utils";
 import { setCurrentUser } from "./store/actions/userActions/userAction";
 
@@ -35,17 +35,27 @@ class App extends Component {
       <Fragment>
         <Header />
         <Switch>
+          <Route exact path="/" component={Homepage} />
           <Route path="/shop" component={Shop} />
-          <Route path="/signin" component={SignIn_and_SignUp} />
-          <Route exaxt path="/" component={Homepage} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? <Redirect to="/" /> : <SignInandSignUp />
+            }
+          />
         </Switch>
       </Fragment>
     );
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
