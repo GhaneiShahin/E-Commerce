@@ -1,22 +1,34 @@
 import React, { memo } from "react";
+import { withRouter } from "react-router-dom";
 import "./CartDropdown.scss";
 import CostumButton from "../CostumButton/CostumButton";
 import CartItem from "../CartItem/CartItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleCartAction } from "../../store/actions/cartActions/cartAction";
 
-const CartDropdown = () => {
+const CartDropdown = ({ history }) => {
   const cartItems = useSelector((state) => state.toggleCart.cartItems);
-  console.log(cartItems);
+  const dispatch = useDispatch()
+  
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
-        {cartItems.map((cartItem) => (
-          <CartItem key={cartItem.id} item={cartItem} />
-        ))}
+        {cartItems.length ? (
+          cartItems.map((cartItem) => (
+            <CartItem key={cartItem.id} item={cartItem} />
+          ))
+        ) : (
+          <span className="empty-message">YOUR CART IS EMPTY</span>
+        )}
       </div>
-      <CostumButton>GO TO CHECKOUT</CostumButton>
+      <CostumButton onClick={() => {
+        history.push("/checkout");
+        dispatch(toggleCartAction())
+      }}>
+        GO TO CHECKOUT
+      </CostumButton>
     </div>
   );
 };
 
-export default memo(CartDropdown);
+export default withRouter(memo(CartDropdown));

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, memo } from "react";
 import { Route, Switch, Redirect } from "react-router";
 import { connect } from "react-redux";
 import Homepage from "./pages/Homepage/Homepage";
@@ -7,6 +7,7 @@ import Header from "./components/Header/Header";
 import SignInandSignUp from "./pages/SignIn-and-SignUp/SignIn-and-SignUp";
 import { auth, createUserProfileDocument } from "./firebase/firebase-utils";
 import { setCurrentUser } from "./store/actions/userActions/userAction";
+import Checkout from "./pages/Checkout/Checkout";
 
 class App extends Component {
   unsubscribeFromAuth = null;
@@ -37,6 +38,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route path="/shop" component={Shop} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route
             exact
             path="/signin"
@@ -58,4 +60,4 @@ const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(App));
