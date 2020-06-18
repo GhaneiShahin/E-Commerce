@@ -4,23 +4,28 @@ import { useSelector } from "react-redux";
 import "./Header.scss";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { auth } from "../../firebase/firebase-utils";
+import CartIcon from "../CartIcon/CartIcon";
+import CartDropdown from "../CartDropdown/CartDropdown";
 
 const Header = () => {
-  const state = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user.currentUser);
+  const card = useSelector((state) => state.toggleCard.hidden);
   return (
     <div className="header">
       <Link className="logo-container" to="/">
         <Logo className="logo" />
       </Link>
       <div className="options">
-        {state ? <h5 className="option">WELCOME {state.displayName.toUpperCase()}</h5> : null}
+        {user ? (
+          <h5 className="option">WELCOME {user.displayName.toUpperCase()}</h5>
+        ) : null}
         <Link className="option" to="/shop">
           SHOP
         </Link>
         <Link className="option" to="/contact">
           CONTACT
         </Link>
-        {state ? (
+        {user ? (
           <div className="option" onClick={() => auth.signOut()}>
             SIGN OUT
           </div>
@@ -29,7 +34,9 @@ const Header = () => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {card ? <CartDropdown /> : null}
     </div>
   );
 };
