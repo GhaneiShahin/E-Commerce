@@ -15,3 +15,17 @@ a:hover {
 * {
   box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 200px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.644);
+  border-radius: 10px;
+}
