@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { shopData } from "./shopData";
+import shopData from "./shopData";
 import PreviewCollection from "../../components/PreviewCollection/PreviewCollection";
 
 const Shop = () => {
