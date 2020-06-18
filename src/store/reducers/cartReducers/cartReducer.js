@@ -1,4 +1,4 @@
-import { TOGGLE_CARD, ADD_ITEM } from "../../actions/actionTypes";
+import { TOGGLE_CART, ADD_ITEM } from "../../actions/actionTypes";
 import { addItemToCart } from "../../cartUtils";
 
 const initialState = {
@@ -6,9 +6,9 @@ const initialState = {
   cartItems: [],
 };
 
-export const toggleCardReducer = (state = initialState, action) => {
+export const toggleCartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TOGGLE_CARD:
+    case TOGGLE_CART:
       return {
         ...state,
         hidden: !state.hidden,

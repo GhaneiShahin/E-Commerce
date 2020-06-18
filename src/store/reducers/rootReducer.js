@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux'
 import { userReducer } from './userReducers/userReducer'
-import { toggleCardReducer } from './cardReducers/cardReducer'
+import { toggleCartReducer } from './cartReducers/cartReducer'
 
 
 export const rootReducer = combineReducers({
   user: userReducer,
-  toggleCard: toggleCardReducer
+  toggleCart: toggleCartReducer
 })

@@ -2,7 +2,7 @@ import React from "react";
 import "./CollectionItem.scss";
 import CostumButton from "../CostumButton/CostumButton";
 import { useDispatch } from "react-redux";
-import { addItem } from "../../store/actions/cardActions/cardAction";
+import { addItem } from "../../store/actions/cartActions/cartAction";
 
 const CollectionItem = ({ item }) => {
   const dispatch = useDispatch();

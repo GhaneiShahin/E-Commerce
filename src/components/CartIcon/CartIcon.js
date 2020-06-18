@@ -1,17 +1,24 @@
-import React from "react";
+import React, { memo } from "react";
 import { ReactComponent as Basket } from "../../assets/basket.svg";
 import "./CartIcon.scss";
-import { useDispatch } from "react-redux";
-import { TOGGLE_CARD } from "../../store/actions/actionTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { TOGGLE_CART } from "../../store/actions/actionTypes";
 
 const CartIcon = () => {
+  const cartItems = useSelector((state) =>
+    state.toggleCart.cartItems.reduce(
+      (accumalatedQuantity, cartItem) =>
+        accumalatedQuantity + cartItem.quantity,
+      0
+    )
+  );
   const dispatch = useDispatch();
   return (
-    <div className="cart-icon" onClick={() => dispatch({ type: TOGGLE_CARD })}>
+    <div className="cart-icon" onClick={() => dispatch({ type: TOGGLE_CART })}>
       <Basket className="shopping-icon" />
-      <span className="item-count">0</span>
+      <span className="item-count">{cartItems}</span>
     </div>
   );
 };
 
-export default CartIcon;
+export default memo(CartIcon);

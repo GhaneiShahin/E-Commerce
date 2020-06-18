@@ -9,7 +9,7 @@ import CartDropdown from "../CartDropdown/CartDropdown";
 
 const Header = () => {
   const user = useSelector((state) => state.user.currentUser);
-  const card = useSelector((state) => state.toggleCard.hidden);
+  const cart = useSelector((state) => state.toggleCart.hidden);
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -36,7 +36,7 @@ const Header = () => {
         )}
         <CartIcon />
       </div>
-      {card ? <CartDropdown /> : null}
+      {cart ? <CartDropdown /> : null}
     </div>
   );
 };
