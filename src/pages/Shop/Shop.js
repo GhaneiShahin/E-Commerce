@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import shopData from "./shopData";
-import PreviewCollection from "../../components/PreviewCollection/PreviewCollection";
+import React from "react";
+import { Route } from "react-router-dom";
+import CollectionsOverview from "../../components/CollectionsOverview/CollectionsOverview";
+import Collection from "../Collection/Collection";
 
-const Shop = () => {
-  const [collections] = useState(shopData);
+const Shop = ({ match }) => {
   return (
     <div className="shop-page">
-      {collections.map(({ id, ...otherCollectionsProps }) => (
-        <PreviewCollection key={id} {...otherCollectionsProps} />
-      ))}
+      <Route exact path={`${match.path}`} component={CollectionsOverview} />
+      <Route path={`${match.path}/:collectionId`} component={Collection} />
     </div>
   );
 };
